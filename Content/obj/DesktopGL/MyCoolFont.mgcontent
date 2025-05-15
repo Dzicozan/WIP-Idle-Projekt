@@ -2,8 +2,8 @@
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>c:/code/idle/Content/MyCoolFont.spritefont</SourceFile>
   <SourceTime>2025-05-16T00:50:25.2086289+02:00</SourceTime>
-  <DestFile>c:/code/idle/Content/bin/DesktopGL/Content/MyCoolFont.xnb</DestFile>
-  <DestTime>2025-05-16T00:51:09.7720158+02:00</DestTime>
+  <DestFile>c:/code/idle/Content/bin/DesktopGL/MyCoolFont.xnb</DestFile>
+  <DestTime>2025-05-16T00:53:28.6449969+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

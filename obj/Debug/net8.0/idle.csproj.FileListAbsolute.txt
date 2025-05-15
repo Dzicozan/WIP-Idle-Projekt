@@ -23,5 +23,6 @@ c:\code\idle\obj\Debug\net8.0\refint\idle.dll
 c:\code\idle\obj\Debug\net8.0\idle.pdb
 c:\code\idle\obj\Debug\net8.0\idle.genruntimeconfig.cache
 c:\code\idle\obj\Debug\net8.0\ref\idle.dll
-c:\code\idle\bin\Debug\net8.0\Content\ball.xnb
+c:\code\idle\obj\Debug\net8.0\idle.sourcelink.json
 c:\code\idle\bin\Debug\net8.0\Content\MyCoolFont.xnb
+c:\code\idle\bin\Debug\net8.0\Content\Wolf.xnb

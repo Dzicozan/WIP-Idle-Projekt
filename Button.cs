@@ -16,19 +16,21 @@ namespace idle
 
         String name;
         public float basecost;
-        public float cost => (float)(basecost * System.Math.Pow(1.05, PurchasedCount));
-        public float rate;
+        public float cost => (float)(basecost * Math.Pow(1.05, PurchasedCount));
+        public float atk;
+        public float def;
         int PurchasedCount;
 
-        public Button(string name, float basecost, float rate,Rectangle rectangle, List<String> lines, Texture2D texture)
+        public Button(string name, float basecost, float atk, float def, Rectangle rectangle, List<String> lines, Texture2D texture)
         {
             this.texture = texture;
             this.rectangle = rectangle;
             this.lines = lines;
             this.name=name;
             this.basecost=basecost;
-            this.rate=rate;
-            PurchasedCount=0;
+            this.atk=atk;
+            this.def=def;
+            PurchasedCount =0;
         }
 
         public void Purchase()
@@ -45,10 +47,14 @@ namespace idle
                 ? cost.ToString("E2") 
                 : cost.ToString("F2");
 
+
+            string displayAtk = atk != 0 ? $"{atk} Attack Power ":"";
+            string displayDef = def != 0 ? $"{def} Defense Power ":"";
+
             // Draw the building name, cost, and CPS
             spriteBatch.DrawString(
                 font,
-                $"{name} - {formattedCost} Dollars ({rate} D/s)",
+                $"{name} - {formattedCost} Gold ({displayAtk}{displayDef})",
                 new Vector2(rectangle.X + 5, rectangle.Y + 5),
                 Color.Black
             );

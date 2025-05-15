@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"c:/code/idle/Content/MyCoolFont.spritefont","c:/code/idle/Content/bin/DesktopGL/MyCoolFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0,3021509
+"c:/code/idle/Content/Wolf.png","c:/code/idle/Content/bin/DesktopGL/Wolf.xnb","TextureProcessor","Texture2DContent",15775,2687925,0,0957797
