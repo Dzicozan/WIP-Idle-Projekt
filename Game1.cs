@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,7 +13,6 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private double gold;
     private double playerAtk;
-    private double playerDef;
     private double elapsedTime;
     private double actionInterval;
     private bool isEnemyAlive;
@@ -28,11 +28,12 @@ public class Game1 : Game
     private MouseState previousMouseState;
     private Texture2D buildingTexture;
     private Texture2D wolfImage;
+    private SoundEffect wolfDeath;
 
-    private int buildingHeight = 50;
-    private int buildingWidth = 800;
-    private int buildingPadding = 10;
-    private int buildingSpacing = 5;
+    private int buildingHeight = 70;
+    private int buildingWidth = 900;
+    private int buildingPadding = 15;
+    private int buildingSpacing = 10;
 
     public Game1()
     {
@@ -55,7 +56,6 @@ public class Game1 : Game
         //initializing game variables
         gold = 0;
         playerAtk = 1;
-        playerDef = 1;
         actionInterval = 2;
         enemyScalar = 1;
         killCount = 0;
@@ -63,7 +63,7 @@ public class Game1 : Game
 
         //Add some textures
         buildingTexture = new Texture2D(GraphicsDevice, 1, 1);
-        buildingTexture.SetData([Color.DimGray]);
+        buildingTexture.SetData([Color.White]);
 
         _graphics.ApplyChanges();
 
@@ -77,7 +77,7 @@ public class Game1 : Game
                                                     ),lines, buildingTexture));
         
         lines= new List<String>();
-        buttons.Add(new Button("Raise Shield", 50, 0, 1, new Rectangle(
+        buttons.Add(new Button("Attack Faster", 500, 0, 0.05 , new Rectangle(
                                                     screenWidth-buildingWidth-buildingPadding,
                                                     1* (buildingHeight + buildingSpacing)+buildingPadding,
                                                     buildingWidth,  
@@ -85,7 +85,7 @@ public class Game1 : Game
                                                     ),lines, buildingTexture));
 
         lines= new List<String>();
-        buttons.Add(new Button("Train Harder", 200, 2, 2, new Rectangle(
+        buttons.Add(new Button("Train Harder", 250, 3, 0, new Rectangle(
                                                     screenWidth-buildingWidth-buildingPadding, 
                                                     2*(buildingHeight + buildingSpacing)+ buildingPadding,
                                                     buildingWidth,
@@ -102,6 +102,8 @@ public class Game1 : Game
         font = Content.Load<SpriteFont>("MyCoolFont");
 
         wolfImage = Content.Load<Texture2D>("wolf");
+
+        wolfDeath = Content.Load<SoundEffect>("Wolf_death");
     }
 
     protected override void Update(GameTime gameTime)
@@ -125,7 +127,11 @@ public class Game1 : Game
                         gold -= button.cost;
                         button.Purchase();
                         playerAtk += button.atk;
-                        playerDef += button.def;          
+                        if (actionInterval >= 0.30)
+                        {
+                            actionInterval -= button.atkspeed;
+                            actionInterval = Math.Round(actionInterval, 2);
+                        }
                     }       
                 }
             }  
@@ -164,16 +170,24 @@ public class Game1 : Game
 
     private void attackSequence()
     {
+        if ((playerAtk - enemyDef) > 0)
+        {
+            enemyHp -= playerAtk - enemyDef;
+        }
+        else
+        {
+            enemyHp -= 1;
+        }
+        
         if (enemyHp <= 0)
         {
             var rand = new Random();
             gold += 50 * enemyScalar * (1 + rand.NextDouble());
             isEnemyAlive = false;
+            wolfDeath.Play();
             killCount += 1;
             return;
         }
-
-        enemyHp = enemyHp - (playerAtk - enemyDef);
     }
 
     protected override void Draw(GameTime gameTime)
@@ -188,18 +202,18 @@ public class Game1 : Game
             ? gold.ToString("E2")
             : gold.ToString("0");
         //add text to top left corner, peak UI right here
-        _spriteBatch.DrawString(font, $"Gold: {formattedMoney}", new Vector2(30, 30), Color.Black);
-        _spriteBatch.DrawString(font, $"Attack: {playerAtk}", new Vector2(30, 50), Color.Black);
-        _spriteBatch.DrawString(font, $"Defense: {playerDef}", new Vector2(30, 70), Color.Black);
-        _spriteBatch.DrawString(font, $"Wolves slain: {killCount}", new Vector2(30, 100), Color.Black);
+        _spriteBatch.DrawString(font, $"Gold: {formattedMoney}", new Vector2(30, 30), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, $"Attack: {playerAtk}", new Vector2(30, 60), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, $"Attack Speed: {actionInterval}/s", new Vector2(30, 90), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, $"Wolves slain: {killCount}", new Vector2(30, 130), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
 
-        _spriteBatch.DrawString(font, $"Wolf Level: {Math.Floor(enemyScalar)}", new Vector2(500, 30), Color.Black);
-        _spriteBatch.DrawString(font, $"Wolf HP: {enemyHp}/{enemyMaxHp}", new Vector2(500, 50), Color.Black);
-        _spriteBatch.DrawString(font, $"Wolf Defense: {enemyDef}", new Vector2(500, 70), Color.Black);
+        _spriteBatch.DrawString(font, $"Wolf Level: {Math.Floor(enemyScalar)}", new Vector2(700, 30), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, $"Wolf HP: {enemyHp}/{enemyMaxHp}", new Vector2(700, 60), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
+        _spriteBatch.DrawString(font, $"Wolf Defense: {enemyDef}", new Vector2(700, 90), Color.Black, 0, new Vector2(0,0), 1.4f, SpriteEffects.None, 0);
 
         _spriteBatch.Draw(
             wolfImage,
-            new Vector2(550, 300),
+            new Vector2(750, 350),
             null, // i have no idea why i need this here
             Color.White,
             0f,  // rotation

@@ -5,9 +5,11 @@
   <Config />
   <SourceFiles>
     <File>c:/code/idle/Content/MyCoolFont.spritefont</File>
+    <File>c:/code/idle/Content/Wolf_death.wav</File>
     <File>c:/code/idle/Content/Wolf.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

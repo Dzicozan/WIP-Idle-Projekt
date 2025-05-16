@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"c:/code/idle/Content/MyCoolFont.spritefont","c:/code/idle/Content/bin/DesktopGL/MyCoolFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0,3021509
-"c:/code/idle/Content/Wolf.png","c:/code/idle/Content/bin/DesktopGL/Wolf.xnb","TextureProcessor","Texture2DContent",15775,2687925,0,0957797
+"c:/code/idle/Content/MyCoolFont.spritefont","c:/code/idle/Content/bin/DesktopGL/MyCoolFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0,256435
+"c:/code/idle/Content/Wolf_death.wav","c:/code/idle/Content/bin/DesktopGL/Wolf_death.xnb","SoundEffectProcessor","SoundEffectContent",59598,59625,0,5151405
+"c:/code/idle/Content/Wolf.png","c:/code/idle/Content/bin/DesktopGL/Wolf.xnb","TextureProcessor","Texture2DContent",15775,2687925,0,2298374

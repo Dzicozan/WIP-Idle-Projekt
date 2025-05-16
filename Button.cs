@@ -18,10 +18,10 @@ namespace idle
         public float basecost;
         public float cost => (float)(basecost * Math.Pow(1.05, PurchasedCount));
         public float atk;
-        public float def;
+        public double atkspeed;
         int PurchasedCount;
 
-        public Button(string name, float basecost, float atk, float def, Rectangle rectangle, List<String> lines, Texture2D texture)
+        public Button(string name, float basecost, float atk, double atkspeed, Rectangle rectangle, List<String> lines, Texture2D texture)
         {
             this.texture = texture;
             this.rectangle = rectangle;
@@ -29,7 +29,7 @@ namespace idle
             this.name=name;
             this.basecost=basecost;
             this.atk=atk;
-            this.def=def;
+            this.atkspeed=atkspeed;
             PurchasedCount =0;
         }
 
@@ -49,21 +49,31 @@ namespace idle
 
 
             string displayAtk = atk != 0 ? $"{atk} Attack Power ":"";
-            string displayDef = def != 0 ? $"{def} Defense Power ":"";
+            string displayatkspeed = atkspeed != 0 ? $"+{atkspeed} Attack speed ":"";
 
-            // Draw the building name, cost, and CPS
+            // Draw the building name, cost, and effect
             spriteBatch.DrawString(
                 font,
-                $"{name} - {formattedCost} Gold ({displayAtk}{displayDef})",
+                $"{name} - {formattedCost} Gold ({displayAtk}{displayatkspeed})",
                 new Vector2(rectangle.X + 5, rectangle.Y + 5),
-                Color.Black
+                Color.Black,
+                0,
+                new Vector2(0, 0),
+                1.4f,
+                SpriteEffects.None,
+                0
             );
             // Draw the purchased count
             spriteBatch.DrawString(
                 font,
                 $"Purchased: {PurchasedCount}",
-                new Vector2(rectangle.X + 5, rectangle.Y + 25),
-                Color.Black
+                new Vector2(rectangle.X + 5, rectangle.Y + 30),
+                Color.Black,
+                0,
+                new Vector2(0, 0),
+                1.4f,
+                SpriteEffects.None,
+                0
             );
         }
     }
