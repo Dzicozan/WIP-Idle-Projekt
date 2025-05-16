@@ -191,6 +191,7 @@ public class Game1 : Game
         _spriteBatch.DrawString(font, $"Gold: {formattedMoney}", new Vector2(30, 30), Color.Black);
         _spriteBatch.DrawString(font, $"Attack: {playerAtk}", new Vector2(30, 50), Color.Black);
         _spriteBatch.DrawString(font, $"Defense: {playerDef}", new Vector2(30, 70), Color.Black);
+        _spriteBatch.DrawString(font, $"Wolves slain: {killCount}", new Vector2(30, 100), Color.Black);
 
         _spriteBatch.DrawString(font, $"Wolf Level: {Math.Floor(enemyScalar)}", new Vector2(500, 30), Color.Black);
         _spriteBatch.DrawString(font, $"Wolf HP: {enemyHp}/{enemyMaxHp}", new Vector2(500, 50), Color.Black);
